@@ -16,9 +16,16 @@
       </div>
     </div>
     <div class="mtop-20">
-      <InfoList :list="subAlbumList" @clickitem="toAlbumDetail">
+      <InfoList
+        :list="subAlbumList"
+        @clickitem="toAlbumDetail"
+        v-if="list.length > 0"
+      >
         <template #img="{ item }">
-          <img class="sub-img mleft-10" v-lazy="item.picUrl + '?param=100y100'" />
+          <img
+            class="sub-img mleft-10"
+            v-lazy="item.picUrl + '?param=100y100'"
+          />
         </template>
         <template #title="{ item }">
           {{ item.name }}
@@ -30,6 +37,16 @@
         </template>
         <template #item2="{ item }"> {{ item.size }} 首 </template>
       </InfoList>
+      <div v-else>
+        <div class="text-center">
+          <img
+            src="@/assets/img/not.png"
+            alt="暂无数据"
+            style="width: 100px; height: 100px"
+          />
+          <p class="font-14">暂无收藏专辑</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -44,13 +61,13 @@ export default {
       list: [],
       offset: 0,
       count: 0,
-      key: ''
+      key: '',
     }
   },
   computed: {
     subAlbumList() {
       return this.list.filter((item) => item.name.match(this.key))
-    }
+    },
   },
   created() {
     this.getSubAlbum()
@@ -64,8 +81,8 @@ export default {
     },
     toAlbumDetail(row) {
       this.$router.push('/albumdetail/' + row.id)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -74,5 +91,9 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.text-center {
+  text-align: center;
+  margin-top: 10vh;
 }
 </style>

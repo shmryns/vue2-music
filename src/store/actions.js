@@ -77,7 +77,7 @@ export default {
         dangerouslyUseHTMLString: true,
         message: `<section>服务器IP已被限制，未登录情况下已无法正常使用，登陆后正常，或将前后端项目都克隆到本地运行进行预览</section>
                      <br/>
-                    <section>点击访问<a style="margin:0 10px" href="https://gitee.com/crazybox521/vue-music" target="_blank">Gitee</a><a href="https://github.com/crazybox521/vue-NetEasyMusic" target="_blank">GitHub</a></section>
+                    <section>点击访问<a href="https://github.com/shmryns/vue2-music" target="_blank">GitHub</a></section>
                     `,
         duration: 10000,
         offset: 120,

@@ -102,8 +102,8 @@
       <div class="tuijian">
         <div class="font-bold mtop-10">相关推荐</div>
         <!-- 推荐列表 -->
-        <ul class="xiangguan mtop-10">
-          <li v-for="(item, index) in RelatedList" :key="index" class="mtop-10">
+        <ul class="xiangguan mtop-10" v-if="RelatedList.length > 0">
+          <li v-for="item in RelatedList" :key="item.id" class="mtop-10">
             <div class="xiangguan-img">
               <img
                 @click="toVideoDetail(item)"
@@ -171,7 +171,12 @@ export default {
   },
   computed: {
     creator() {
-      return this.type === 'v' ? this.deTail.creator : this.deTail.artists[0]
+      try {
+        return this.type == 'v' ? this.deTail.creator : this.deTail.artists[0]
+      } catch (error) {
+        console.log('请求数据缓慢', error)
+        return {}
+      }
     },
     likedInfo() {
       return this.countInfo.liked ? '已赞' : '赞'
@@ -183,10 +188,12 @@ export default {
       return this.type === 'v' ? '视频详情' : 'MV详情'
     },
     avatarUrl() {
-      return this.creator.avatarUrl || this.creator.img1v1Url
+      if (this.creator) return this.creator.avatarUrl || this.creator.img1v1Url
+      else return ''
     },
     nickName() {
-      return this.creator.nickname || this.creator.name
+      if (this.creator) return this.creator.nickname || this.creator.name
+      else return ''
     },
     ...mapState(['isLogin']),
   },
@@ -211,13 +218,13 @@ export default {
     this.getRelatedVideo()
     this.getVideoLikeInfo()
   },
-
   methods: {
     /* 获取视频详情 */
     async getDetail() {
       const res = await getVideoDetail(this.type, this.id)
       if (res.code !== 200) return
-      this.deTail = Object.freeze(res.data)
+      this.deTail = Object.freeze(res.data) // 冻结对象
+      console.log(this.deTail, '88888')
       if (this.type === 'v') this.followed = res.data.creator.followed
       else this.subed = res.subed
     },
@@ -235,9 +242,6 @@ export default {
       if (res.code !== 200) return
       if (this.type === 'v') this.RelatedList = Object.freeze(res.data)
       else this.RelatedList = Object.freeze(res.result)
-      this.$nextTick(() => {
-        console.log(this.RelatedList)
-      })
     },
     /* 获取视频点赞，分享，评论，是否点赞数据 */
     async getVideoLikeInfo() {
@@ -301,7 +305,12 @@ export default {
     },
     /* 推荐列表的用户名 */
     relatedNickName(item) {
-      return item.creator[0].userName || item.artists[0].name
+      try {
+        return item.artists[0].name || item.creator[0].userName
+      } catch (error) {
+        console.log(error)
+        return ''
+      }
     },
     /* 收藏MV */
     async subVideo() {

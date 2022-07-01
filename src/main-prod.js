@@ -1,6 +1,6 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App.vue'
-import router from './router/index'
+// import router from './router/index'
 import store from './store/index'
 
 import '@/utils/filters'
@@ -8,7 +8,7 @@ import '@/utils/filters'
 /* import './plugins/my-element' */
 
 import './assets/css/global.css'
-import './assets/css/my-element.css'
+// import './assets/css/my-element.css'
 import './assets/css/btn.css'
 /* Vue.use(window['vue-cropper'].default) */
 import VueCropper from 'vue-cropper'

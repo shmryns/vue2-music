@@ -137,10 +137,6 @@ export default {
     },
     toMvDeTail(id) {
       // 跳转到mv详情页面
-      if (!this.isLogin) {
-        this.$message.warning('需要登录')
-        return
-      }
       console.log('跳转到mv详情页面', id)
       if (typeof id === 'number') this.$router.push('/videodetail/mv/' + id)
     },

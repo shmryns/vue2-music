@@ -17,7 +17,7 @@
     </div>
     <!-- 视频列表 -->
     <div class="video-list mtop-10">
-      <ul>
+      <ul v-if="list.length > 0">
         <li v-for="(v, index) in subMvList" :key="index" class="mtop-10">
           <div class="mtop-10 img-wrap">
             <img
@@ -44,6 +44,16 @@
           </div>
         </li>
       </ul>
+      <div v-else>
+        <div class="text-center">
+          <img
+            src="@/assets/img/not.png"
+            alt="暂无数据"
+            style="width: 100px; height: 100px"
+          />
+          <p class="font-14">暂无收藏视频</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -55,13 +65,13 @@ export default {
     return {
       key: '',
       list: [],
-      count: 0
+      count: 0,
     }
   },
   computed: {
     subMvList() {
       return this.list.filter((item) => item.title.match(this.key))
-    }
+    },
   },
   created() {
     this.getSubMv()
@@ -75,8 +85,8 @@ export default {
     },
     toMvDetail(id) {
       if (typeof id !== 'undefined') this.$router.push('videodetail/mv/' + id)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -93,13 +103,12 @@ export default {
     li {
       width: 22%;
       margin-right: 3%;
-      @media screen and (max-width:415px) {
-        &{
+      @media screen and (max-width: 415px) {
+        & {
           width: 48%;
           margin-right: 4%;
         }
-        &:nth-child(2n)
-        {
+        &:nth-child(2n) {
           margin-right: 0;
         }
       }
@@ -155,5 +164,9 @@ export default {
   &:hover .play-btn {
     opacity: 1;
   }
+}
+.text-center {
+  text-align: center;
+  margin-top: 10vh;
 }
 </style>

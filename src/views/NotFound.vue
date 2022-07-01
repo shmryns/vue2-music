@@ -1,7 +1,7 @@
 <template>
   <div class="not-found">
     <el-empty
-      description="404 Not Found"
+      description="很抱歉，你要查找的网页找不到"
       :image-size="400"
       image="https://cdn.jsdelivr.net/gh/crazybox521/blogImg/404.svg"
     >

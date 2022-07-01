@@ -1,6 +1,8 @@
 <template>
   <div class="footer-bar">
-    <Player />
+    <keep-alive>
+      <Player />
+    </keep-alive>
   </div>
 </template>
 
@@ -8,12 +10,12 @@
 import Player from '../player/Player.vue'
 export default {
   components: {
-    Player
-  }
+    Player,
+  },
 }
 </script>
 <style lang="less" scoped>
-.footer-bar{
- height: 100%;
+.footer-bar {
+  height: 100%;
 }
 </style>
