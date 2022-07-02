@@ -18,8 +18,18 @@
     </div>
     <!-- 搜索框 -->
     <div class="search-input">
-      <el-input style="width: 200px" placeholder="搜索" v-model="keywords" @change="toSearch" @input="handleInput"
-        ref="inputRef" clearable @focus="getHotSearch" @blur="showInfoTip = false" prefix-icon="el-icon-search">
+      <el-input
+        style="width: 200px"
+        :placeholder="defaultSearch"
+        v-model="keywords"
+        @change="toSearch"
+        @input="handleInput"
+        ref="inputRef"
+        clearable
+        @focus="getHotSearch"
+        @blur="showInfoTip = false"
+      >
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
       <transition name="el-fade-in">
         <!-- 热搜及搜索建议 -->
@@ -33,29 +43,41 @@
                 </button>
               </div>
               <div class="his-wrap">
-                <button class="btn btn-white his-item font-12" v-for="val in historySearchList" :key="val"
-                  @click="clickHot(val)">
+                <button
+                  class="btn btn-white his-item font-12"
+                  v-for="val in historySearchList"
+                  :key="val"
+                  @click="clickHot(val)"
+                >
                   {{ val }}
                 </button>
               </div>
             </div>
             <div class="hot-search">
               <div class="hot-title font-14">热搜榜</div>
-              <div class="hot-item pointer" :class="{ 'top-item': index < 3 }" v-for="(item, index) in hotList"
-                :key="index" @click="clickHot(item.searchWord)">
+              <div
+                class="hot-item pointer"
+                :class="{ 'top-item': index < 3 }"
+                v-for="(item, index) in hotList"
+                :key="index"
+                @click="clickHot(item.searchWord)"
+              >
                 <div class="item-index">{{ index + 1 }}</div>
                 <div class="item-info">
                   <div class="key-word">
                     <span class="font-12 item-key">{{ item.searchWord }}</span>
                     <span style="color: #c2c1c1" class="font-12 mleft-10">{{
-                        item.score
+                      item.score
                     }}</span>
                   </div>
                   <div>
                     <span style="color: #999999" class="font-12">{{
-                        item.content
+                      item.content
                     }}</span>
                   </div>
+                </div>
+                <div class="item-iconUrl">
+                  <img :src="item.iconUrl" alt="" />
                 </div>
               </div>
             </div>
@@ -64,37 +86,55 @@
             <div class="search-suggest">
               <div class="search-btn-wrap">
                 <button class="no-btn">
-                  搜“{{ keywords }}”相关的内容<i class="el-icon-arrow-right"></i>
+                  搜“{{ keywords }}”相关的内容<i
+                    class="el-icon-arrow-right"
+                  ></i>
                 </button>
               </div>
               <SuggestList v-if="showMusic">
                 <template #title>
-                  <i class="iconfont icon-yinle font-16"></i><span class="mleft-10">单曲</span>
+                  <i class="iconfont icon-yinle font-16"></i
+                  ><span class="mleft-10">单曲</span>
                 </template>
                 <template #item>
-                  <div v-for="s in suggestInfo.songs" :key="s.id" class="item pointer text-hidden"
-                    @click="playMusic(s.id)">
+                  <div
+                    v-for="s in suggestInfo.songs"
+                    :key="s.id"
+                    class="item pointer text-hidden"
+                    @click="playMusic(s.id)"
+                  >
                     {{ s.name }} - {{ s.artists[0].name }}
                   </div>
                 </template>
               </SuggestList>
               <SuggestList v-if="showAlbum">
                 <template #title>
-                  <i class="iconfont icon-zhuanji font-16"></i><span class="mleft-10">专辑</span>
+                  <i class="iconfont icon-zhuanji font-16"></i
+                  ><span class="mleft-10">专辑</span>
                 </template>
                 <template #item>
-                  <div v-for="al in suggestInfo.albums" :key="al.id" class="item pointer text-hidden"
-                    @click="toAlbumDetail(al.id)">
+                  <div
+                    v-for="al in suggestInfo.albums"
+                    :key="al.id"
+                    class="item pointer text-hidden"
+                    @click="toAlbumDetail(al.id)"
+                  >
                     {{ al.name }} - {{ al.artist.name }}
                   </div>
                 </template>
               </SuggestList>
               <SuggestList v-if="showArtist">
-                <template #title><i class="el-icon-user font-16"></i><span class="mleft-10">歌手</span>
+                <template #title
+                  ><i class="el-icon-user font-16"></i
+                  ><span class="mleft-10">歌手</span>
                 </template>
                 <template #item>
-                  <div v-for="ar in suggestInfo.artists" :key="ar.id" class="item pointer text-hidden"
-                    @click="toArtistDetail(ar.id)">
+                  <div
+                    v-for="ar in suggestInfo.artists"
+                    :key="ar.id"
+                    class="item pointer text-hidden"
+                    @click="toArtistDetail(ar.id)"
+                  >
                     {{ ar.name }}
                   </div>
                 </template>
@@ -102,11 +142,16 @@
 
               <SuggestList v-if="showPlaylist">
                 <template #title>
-                  <i class="iconfont icon-gedan font-16"></i><span class="mleft-10">歌单</span>
+                  <i class="iconfont icon-gedan font-16"></i
+                  ><span class="mleft-10">歌单</span>
                 </template>
                 <template #item>
-                  <div v-for="p in suggestInfo.playlists" :key="p.id" class="item pointer text-hidden"
-                    @click="toPlayListDetail(p.id)">
+                  <div
+                    v-for="p in suggestInfo.playlists"
+                    :key="p.id"
+                    class="item pointer text-hidden"
+                    @click="toPlayListDetail(p.id)"
+                  >
                     {{ p.name }}
                   </div>
                 </template>
@@ -116,10 +161,18 @@
         </div>
       </transition>
     </div>
-    <div class="avatar-wrap mleft-12 pointer" @click="loginView">
-      <el-avatar :size="30" icon="el-icon-user-solid" :src="avatarUrl"></el-avatar>
+    <div class="avatar-wrap mleft-20 pointer" @click="loginView">
+      <el-avatar
+        :size="30"
+        icon="el-icon-user-solid"
+        :src="avatarUrl"
+      ></el-avatar>
     </div>
-    <div class="login-info mleft-10 font-12 text-hidden" :class="{ pointer: isLogin }" @click="doLogout">
+    <div
+      class="login-info mleft-10 font-12 text-hidden"
+      :class="{ pointer: isLogin }"
+      @click="doLogout"
+    >
       {{ name }}
     </div>
   </div>
@@ -127,7 +180,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getHotSearch, getSuggest } from '@/api/api_other'
+import { getHotSearch, getSuggest, getDefaultSearch } from '@/api/api_other'
 import { getMusicListByIds } from '@/api/api_music.js'
 import SuggestList from '@/components/list/SuggestList'
 export default {
@@ -135,11 +188,12 @@ export default {
   data() {
     return {
       keywords: '',
-      showInfoTip: false,//展示搜索建议
-      hotList: [],//热搜列表
-      historySearchList: [],//历史搜索
-      suggestInfo: {},//建议
-      showMenuInPhone: false
+      showInfoTip: false, //展示搜索建议
+      hotList: [], //热搜列表
+      historySearchList: [], //历史搜索
+      suggestInfo: {}, //建议
+      showMenuInPhone: false,
+      defaultSearch: '搜索', //默认搜索
     }
   },
   computed: {
@@ -163,20 +217,31 @@ export default {
     },
     showPlaylist() {
       return Object.hasOwnProperty.call(this.suggestInfo, 'playlists')
-    }
+    },
   },
   created() {
     this.getHistory()
+    this.getDefaultSearch()
   },
   methods: {
+    /* 获取默认搜索词 */
+    async getDefaultSearch() {
+      const res = await getDefaultSearch()
+      if (res.code !== 200) return
+      this.defaultSearch = res.data.showKeyword
+    },
     /* 去搜索页面 */
     toSearch() {
       if (this.keywords == '') return
       this.$refs.inputRef.blur()
-      console.log(this.$route.path);
+      console.log(this.$route.path)
       if (this.$route.path != '/search?keywords=' + this.keywords) {
-        console.log(encodeURIComponent(this.keywords));
-        this.$router.push(`/search?keywords=${encodeURIComponent(encodeURIComponent(this.keywords))}`)
+        console.log(encodeURIComponent(this.keywords))
+        this.$router.push(
+          `/search?keywords=${encodeURIComponent(
+            encodeURIComponent(this.keywords),
+          )}`,
+        )
       }
       this.setHistory(this.keywords)
     },
@@ -238,7 +303,7 @@ export default {
         this.historySearchList = this.historySearchList.slice(0, 5)
         window.localStorage.setItem(
           'search',
-          JSON.stringify(this.historySearchList)
+          JSON.stringify(this.historySearchList),
         )
       }
     },
@@ -247,7 +312,7 @@ export default {
       this.$confirm('确认清空历史记录吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
         window.localStorage.removeItem('search')
         this.historySearchList = []
@@ -301,8 +366,8 @@ export default {
         document.querySelector('.aside').style.left = 0 + 'px'
       else document.querySelector('.aside').style.left = -200 + 'px'
       this.showMenuInPhone = !this.showMenuInPhone
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -326,7 +391,9 @@ export default {
 .menu-btn {
   display: none;
 }
-
+::v-deep .el-input__inner {
+  font-size: 12px;
+}
 .btn-history {
   margin-left: 100px;
   display: flex;
@@ -395,6 +462,16 @@ export default {
       width: 40px;
       text-align: center;
     }
+    .item-iconUrl {
+      margin-left: 4px;
+      height: 14px;
+      align-items: center;
+      display: flex;
+      img {
+        height: 100%;
+        align-items: center;
+      }
+    }
   }
 
   .top-item {
@@ -427,7 +504,7 @@ export default {
 }
 
 .login-info {
-  max-width: 4rem;
+  max-width: 5rem;
 }
 
 @media screen and (max-width: 768px) {

@@ -55,7 +55,7 @@ export default {
   justify-content: center;
   align-items: center;
   .head-btn-wrap {
-    width: 203px;
+    // width: 203px;
     height: 32px;
     border: 1px solid #bbbbbb;
     border-radius: 16px;

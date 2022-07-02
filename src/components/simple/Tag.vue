@@ -14,9 +14,9 @@ export default {
         backgroundColor: this.bgcolor,
         borderColor: this.color,
         fontSize: this.fontSize,
-        height:this.height,
-        lineHeight:this.height
-      }
+        height: this.height,
+        lineHeight: this.height,
+      },
     }
   },
 }
@@ -31,6 +31,6 @@ export default {
   height: 22px;
   line-height: 22px;
   color: #ec4141;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 </style>

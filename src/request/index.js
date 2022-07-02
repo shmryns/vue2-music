@@ -56,6 +56,13 @@ export const post = (url, data, headers, params) => {
     })
 }
 
+/**
+ *
+ * @param {*} url  请求地址
+ * @param {*} params  请求参数
+ * @param {*} headers  请求头
+ * @returns  Promise
+ */
 export const getBlob = (url, params, headers) =>
   axios
     .get(url, { params, headers, responseType: 'blob' })
@@ -64,4 +71,4 @@ export const getBlob = (url, params, headers) =>
       handleError(error)
     })
 
-export const getIp = () => axios.get('http://47.102.159.133:3333/real')
+export const getIp = () => axios.get('http://47.102.159.133:3333/real') // 获取ip

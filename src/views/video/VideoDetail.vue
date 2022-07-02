@@ -167,17 +167,18 @@ export default {
       },
       followed: false,
       subed: false,
+      creator: {},
     }
   },
   computed: {
-    creator() {
-      try {
-        return this.type == 'v' ? this.deTail.creator : this.deTail.artists[0]
-      } catch (error) {
-        console.log('请求数据缓慢', error)
-        return {}
-      }
-    },
+    // creator() {
+    //   try {
+    //     return this.type == 'v' ? this.deTail.creator : this.deTail.artists[0]
+    //   } catch (error) {
+    //     console.log('请求数据缓慢', error)
+    //     return {}
+    //   }
+    // },
     likedInfo() {
       return this.countInfo.liked ? '已赞' : '赞'
     },
@@ -210,6 +211,17 @@ export default {
       handler(val) {
         if (val !== 'mv' && val !== 'v') this.$router.push('/404')
       },
+    },
+    deTail: {
+      immediate: true,
+      handler(val) {
+        if (val.artists && val.artists.length > 0) {
+          this.creator = val.artists[0]
+        } else {
+          this.creator = val.creator
+        }
+      },
+      deep: true,
     },
   },
   created() {
@@ -270,7 +282,7 @@ export default {
         t: this.followed ? 0 : 1,
       }
       const res = await follow(followObj)
-      if (res.code !== 200) return this.$message.error('操作失败')
+      if (!res || res.code !== 200) return this.$message.error('操作失败')
       this.$message.success(this.followed ? '取关成功' : '关注成功')
       this.followed = !this.followed
     },
@@ -305,12 +317,14 @@ export default {
     },
     /* 推荐列表的用户名 */
     relatedNickName(item) {
-      try {
-        return item.artists[0].name || item.creator[0].userName
-      } catch (error) {
-        console.log(error)
-        return ''
-      }
+      if (item.artists) return item.artists[0].name
+      else return item.creator[0].userName
+      // try {
+      //   return item.artists[0].name || item.creator[0].userName
+      // } catch (error) {
+      //   console.log(error)
+      //   return ''
+      // }
     },
     /* 收藏MV */
     async subVideo() {

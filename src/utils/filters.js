@@ -31,6 +31,18 @@ Vue.filter('mvTopFormat', function (index) {
   return index < 10 ? '0' + index : index
 })
 
+/* unix时间戳转换时间封装方法 */
+Vue.filter('unixFormat', function (time) {
+  if (typeof time === 'undefined') return 0
+  const t = new Date(time)
+  let year = t.getFullYear()
+  let mouth = t.getMonth() + 1
+  let day = t.getDate()
+  mouth = mouth < 10 ? '0' + mouth : mouth
+  day = day < 10 ? '0' + day : day
+  return year + '-' + mouth + '-' + day
+})
+
 /* 六位数的区域代码转城市名字 */
 Vue.filter('postCodeFormat', function (postCode) {
   if (typeof postCode === 'undefined') return

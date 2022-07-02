@@ -61,7 +61,9 @@
           </div>
         </div>
         <div class="desc-item mtop-10 font-14">
-          所在地区：{{ info.province | postCodeFormat }}
+          <span>所在地区：{{ info.province | postCodeFormat }}</span>
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <span>生日：{{ info.birthday | unixFormat }}</span>
         </div>
         <div class="desc-item mtop-10 font-14">
           个人介绍：{{ info.signature || '暂无介绍' }}
@@ -169,9 +171,8 @@ export default {
     async getDetail() {
       const res = await getUserDetail(this.id)
       if (res.code !== 200) return
-      console.log(this.id)
       this.info = Object.freeze(res.profile) //冻结对象，防止修改
-      console.log(this.info)
+      console.log(this.info, 'info')
       this.level = res.level
       this.followed = res.profile.followed
     },
@@ -196,8 +197,9 @@ export default {
         t: this.followed ? 0 : 1,
       }
       const res = await follow(followObj)
-      if (res.code !== 200)
-        return this.$message.error(res.data.blockText || '操作失败')
+      console.log(res, 'res')
+      if (!res || res.code !== 200)
+        return this.$message.error('操作失败' || res.data.blockText)
       this.$message.success(this.followed ? '取关成功' : '关注成功')
       this.followed = !this.followed
     },

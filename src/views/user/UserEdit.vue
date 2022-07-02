@@ -27,7 +27,7 @@
         </el-form-item>
       </el-form>
       <div class="edit-img-container">
-        <ImgCut btnText="修改头像" :imgUrl="imgUrl" @upload="upload"/>
+        <ImgCut btnText="修改头像" :imgUrl="imgUrl" @upload="upload" />
       </div>
     </div>
     <div class="submit-wrap">
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import { updateUserInfo ,uploadAvatar} from '@/api/api_user'
+import { updateUserInfo, uploadAvatar } from '@/api/api_user'
 import ImgCut from '@/components/img-cut/ImgCut'
 import { mapState } from 'vuex'
 export default {
   components: {
-    ImgCut
+    ImgCut,
   },
   data() {
     /* gender, signature, nickname, birthday, */
@@ -52,15 +52,15 @@ export default {
         nickname: '',
         signature: '',
         gender: 0,
-        birthday: {}
-      }
+        birthday: {},
+      },
     }
   },
   computed: {
     ...mapState(['profile']),
     imgUrl() {
       return this.profile.avatarUrl ? this.profile.avatarUrl : ''
-    }
+    },
   },
   watch: {
     'form.signature'(val, oldval) {
@@ -68,7 +68,7 @@ export default {
         this.form.signature = oldval
         return this.$message.warning('介绍过长')
       }
-    }
+    },
   },
   created() {
     this.getInfo()
@@ -92,7 +92,7 @@ export default {
       formData.append('imgFile', file)
       const imgObj = {
         imgSize: imgSize.width,
-        data: formData
+        data: formData,
       }
       console.log(imgObj)
       console.log(imgObj.data.get('imgFile'))
@@ -107,14 +107,14 @@ export default {
         nickname: this.form.nickname,
         signature: this.form.signature,
         gender: this.form.gender,
-        birthday: this.form.birthday.getTime()
+        birthday: this.form.birthday.getTime(),
       }
       const res = await updateUserInfo(obj)
       if (res.code !== 200) return this.$message.error('更新失败')
       this.$message.success('更新成功')
       this.$store.dispatch('getAcount')
-    }
-  }
+    },
+  },
 }
 </script>
 
