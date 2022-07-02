@@ -61,7 +61,7 @@ import {
   getVideoHotTag,
   getVideoAlltag,
   getAllVideo,
-  getVideoByTag
+  getVideoByTag,
 } from '@/api/api_video'
 export default {
   components: { VideoList },
@@ -77,13 +77,13 @@ export default {
       isLoading: false, // 正在获取视频列表
       mode: 'first',
       currenTagId: 0,
-      listType: 'video'
+      listType: 'video',
     }
   },
   computed: {
     disabled() {
       return this.loading || !this.hasMore
-    }
+    },
   },
   created() {
     this.getHotTag()
@@ -220,8 +220,8 @@ export default {
       this.currenTagId = id
       this.mode = 'first'
       this.getVideo()
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -322,7 +322,7 @@ export default {
     }
   }
   .tag-list {
-    width:100%;
+    width: 100%;
   }
 }
 </style>

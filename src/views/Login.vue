@@ -39,7 +39,7 @@ export default {
       isLoading: false,
       loginType: 1, //1:手机号 2:,
       loginComponent: ['LoginByPhone', 'LoginByQr', 'LoginByCode'],
-      type: ['手机号', '二维码', '验证码']
+      type: ['手机号', '二维码', '验证码'],
     }
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
     },
     currenType() {
       return this.type[this.loginType]
-    }
+    },
   },
   beforeDestroy() {
     /* 离开登录组件时，获取登录信息 */
@@ -66,8 +66,8 @@ export default {
     },
     changeType(type) {
       this.loginType = type
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -78,9 +78,7 @@ export default {
   overflow: hidden;
   .login-container {
     min-height: 100vh;
-    background-image: url('https://cdn.jsdelivr.net/gh/crazybox521/blogImg/login.jpg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    background-image: url('../assets/img/bg.gif');
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +88,7 @@ export default {
   width: 500px;
   height: 600px;
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 65px 55px 54px 55px;
   .title {
     display: block;

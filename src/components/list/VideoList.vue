@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="title-line text-hidden font-14">{{ v.data.name }}</div>
-          <div class="author-line font-12">
+          <div class="author-line font-12" v-if="v.data.artists">
             {{ v.data.artists[0].name }}
           </div>
         </template>
@@ -69,20 +69,27 @@ export default {
   props: {
     list: {
       type: Array,
-      required: true
+      required: true,
     },
     disabled: {
       type: Boolean,
       required: true,
-      default: false
-    }
+      default: false,
+    },
   },
   watch: {
     'list.length'(val) {
       if (val === 8) {
         this.$emit('loadMore', this.list.length)
       }
-    }
+    },
+    list: {
+      immediate: true,
+      handler(val) {
+        this.list = val
+      },
+      deep: true,
+    },
   },
   methods: {
     load() {
@@ -93,8 +100,8 @@ export default {
     },
     toMvDetail(id) {
       if (typeof id !== 'undefined') this.$router.push('/videodetail/mv/' + id)
-    }
-  }
+    },
+  },
 }
 </script>
 

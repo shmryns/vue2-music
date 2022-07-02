@@ -391,9 +391,7 @@ export default {
 .menu-btn {
   display: none;
 }
-::v-deep .el-input__inner {
-  font-size: 12px;
-}
+
 .btn-history {
   margin-left: 100px;
   display: flex;

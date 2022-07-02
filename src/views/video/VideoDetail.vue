@@ -213,7 +213,7 @@ export default {
       },
     },
     deTail: {
-      immediate: true,
+      immediate: true, // 初始化时立即执行
       handler(val) {
         if (val.artists && val.artists.length > 0) {
           this.creator = val.artists[0]

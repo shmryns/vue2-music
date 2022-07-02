@@ -172,7 +172,8 @@ export default {
       isMute: false, //是否是静音
       imgInfo: {
         //img区域信息，图片，歌名，歌手
-        imgUrl: 'https://cdn.jsdelivr.net/gh/crazybox521/blogImg/music.jpg',
+        imgUrl:
+          'https://bizaladdin-image.baidu.com/0/pic/1455484060_685827087_-310145699.jpg',
         name: '未知歌名',
         author: '未知歌手名',
       },

@@ -3,7 +3,8 @@ const resolve = (dir) => path.join(__dirname, dir)
 
 module.exports = {
   devServer: {
-    proxy: 'http://localhost:3000',
+    // proxy: 'http://localhost:80',
+    proxy: 'http://1.116.129.2:80',
   },
 
   chainWebpack: (config) => {

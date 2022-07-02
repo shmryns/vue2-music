@@ -9,7 +9,7 @@
       >扫码登录
     </div>
     <div class="img-wrap">
-      <img class="img img-h" :src="imgData" />
+      <img class="img img-h" v-lazy="imgData" />
       <div class="btn-refresh pointer" @click="getKey" v-show="qrType === 800">
         <i class="el-icon-refresh-left"></i>
       </div>
