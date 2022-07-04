@@ -151,7 +151,7 @@ export default {
     imgUrl() {
       return this.artistInfo.cover
         ? this.artistInfo.cover + '?param=300y300'
-        : 'https://cdn.jsdelivr.net/gh/crazybox521/blogImg/music.jpg'
+        : 'https://bizaladdin-image.baidu.com/0/pic/1455484060_685827087_-310145699.jpg'
     },
     isSub() {
       return this.subList.findIndex((item) => item.id == this.id) !== -1
